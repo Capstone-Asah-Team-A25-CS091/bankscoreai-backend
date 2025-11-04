@@ -1,23 +1,34 @@
-
-import { Response, NextFunction } from 'express';
+import { Request, ResponseToolkit, Server } from '@hapi/hapi';
 import { verifyToken } from '../utils/jwt';
-import { AuthRequest } from '../api/auth/auth.controller';
 
-export const authenticate = (
-  req: AuthRequest,
-  res: Response,
-  next: NextFunction
-) => {
-  const token = req.headers.authorization?.split(' ')[1];
-  if (!token) {
-    return res.status(401).json({ message: 'Unauthorized' });
+declare module '@hapi/hapi' {
+  interface AuthCredentials {
+    id: number;
   }
+}
 
-  const decoded = verifyToken(token);
-  if (typeof decoded === 'string') {
-    return res.status(401).json({ message: decoded });
-  }
+export const authPlugin = {
+  name: 'auth',
+  version: '1.0.0',
+  register: async (server: Server) => {
+    server.auth.scheme('jwt', () => ({
+      authenticate: async (request: Request, h: ResponseToolkit) => {
+        const token = request.headers.authorization?.split(' ')[1];
 
-  req.user = decoded as { id: number };
-  next();
+        if (!token) {
+          return h.unauthenticated(new Error('Missing authentication'));
+        }
+
+        const decoded = verifyToken(token);
+
+        if (typeof decoded === 'string') {
+          return h.unauthenticated(new Error(decoded));
+        }
+
+        return h.authenticated({ credentials: decoded as { id: number } });
+      },
+    }));
+
+    server.auth.strategy('jwt-auth', 'jwt');
+  },
 };

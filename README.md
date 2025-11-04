@@ -1,55 +1,56 @@
+
 # BankScoreAI Backend
 
-This is the backend for the BankScoreAI application. It provides a RESTful API for user authentication and other features.
+Ini adalah backend untuk aplikasi BankScoreAI. Ini menyediakan API RESTful untuk otentikasi pengguna dan fitur lainnya.
 
-## Getting Started
+## Memulai
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+Instruksi ini akan membantu Anda mendapatkan salinan proyek yang berjalan di mesin lokal Anda untuk tujuan pengembangan dan pengujian.
 
-### Prerequisites
+### Prasyarat
 
 * Bun
 * PostgreSQL
 
-### Installing
+### Instalasi
 
-1. Clone the repository:
+1. Kloning repositori:
    ```sh
    git clone https://github.com/your-username/bankscoreai-backend.git
    ```
-2. Install the dependencies:
+2. Instal dependensi:
    ```sh
    bun install
    ```
-3. Create a `.env` file in the root of the project with the following variables:
+3. Buat file `.env` di root proyek dengan variabel berikut:
    ```
-   DB_USER=your_db_user
-   DB_HOST=your_db_host
+   DB_USER=nama_pengguna_db_anda
+   DB_HOST=host_db_anda
    DB_DATABASE=capstone_asah
-   DB_PASSWORD=your_db_password
-   DB_PORT=your_db_port
-   JWT_SECRET=your_jwt_secret
+   DB_PASSWORD=kata_sandi_db_anda
+   DB_PORT=port_db_anda
+   JWT_SECRET=kunci_rahasia_jwt_anda
    ```
-4. Run the database migrations:
+4. Jalankan migrasi database:
    ```sh
    bun run migrate
    ```
-5. Start the server:
+5. Mulai server:
    ```sh
    bun run start
    ```
 
-The server will be running on `http://localhost:3000`.
+Server akan berjalan di `http://localhost:3000`.
 
-## API Documentation
+## Dokumentasi API
 
-### Authentication
+### Otentikasi
 
 #### `POST /api/auth/register`
 
-Registers a new user.
+Mendaftarkan pengguna baru.
 
-**Request Body:**
+**Body Permintaan:**
 
 ```json
 {
@@ -59,7 +60,7 @@ Registers a new user.
 }
 ```
 
-**Response:**
+**Respon:**
 
 ```json
 {
@@ -68,15 +69,15 @@ Registers a new user.
     "email": "user@example.com",
     "name": "John Doe"
   },
-  "token": "your_jwt_token"
+  "token": "token_jwt_anda"
 }
 ```
 
 #### `POST /api/auth/login`
 
-Logs in a user.
+Masuk sebagai pengguna.
 
-**Request Body:**
+**Body Permintaan:**
 
 ```json
 {
@@ -85,7 +86,7 @@ Logs in a user.
 }
 ```
 
-**Response:**
+**Respon:**
 
 ```json
 {
@@ -94,19 +95,19 @@ Logs in a user.
     "email": "user@example.com",
     "name": "John Doe"
   },
-  "token": "your_jwt_token"
+  "token": "token_jwt_anda"
 }
 ```
 
 #### `PUT /api/auth/password`
 
-Updates the password of the authenticated user.
+Memperbarui kata sandi pengguna yang terotentikasi.
 
-**Headers:**
+**Header:**
 
-* `Authorization`: `Bearer your_jwt_token`
+* `Authorization`: `Bearer token_jwt_anda`
 
-**Request Body:**
+**Body Permintaan:**
 
 ```json
 {
@@ -115,10 +116,10 @@ Updates the password of the authenticated user.
 }
 ```
 
-**Response:**
+**Respon:**
 
 ```json
 {
-  "message": "Password updated successfully"
+  "message": "Kata sandi berhasil diperbarui"
 }
 ```

@@ -1,41 +1,39 @@
-
-import { Request, Response } from 'express';
+import { Request, ResponseToolkit } from '@hapi/hapi';
 import * as authService from './auth.service';
 
-export interface AuthRequest extends Request {
-  user?: { id: number };
-}
-
-export const register = async (req: Request, res: Response) => {
+export const register = async (request: Request, h: ResponseToolkit) => {
   try {
-    const { email, password, name } = req.body;
+    const { email, password, name } = request.payload as any;
     const { user, token } = await authService.register(email, password, name);
-    res.status(201).json({ user, token });
-  } catch (error: any) { // Explicitly type error as any
-    res.status(400).json({ message: error.message });
+    return h.response({ user, token }).code(201);
+  } catch (error: any) {
+    return h.response({ message: error.message }).code(400);
   }
 };
 
-export const login = async (req: Request, res: Response) => {
+export const login = async (request: Request, h: ResponseToolkit) => {
   try {
-    const { email, password } = req.body;
+    const { email, password } = request.payload as any;
     const { user, token } = await authService.login(email, password);
-    res.json({ user, token });
-  } catch (error: any) { // Explicitly type error as any
-    res.status(400).json({ message: error.message });
+    return h.response({ user, token }).code(200);
+  } catch (error: any) {
+    return h.response({ message: error.message }).code(400);
   }
 };
 
-export const updatePassword = async (req: AuthRequest, res: Response) => {
+export const updatePassword = async (request: Request, h: ResponseToolkit) => {
   try {
-    const { oldPassword, newPassword } = req.body;
-    const userId = req.user?.id;
+    const { oldPassword, newPassword } = request.payload as any;
+    // In Hapi, user information from authentication strategy would be available via request.auth.credentials
+    // For now, we'll assume a placeholder for userId
+    const userId = request.auth.credentials.id;
+
     if (!userId) {
-      return res.status(401).json({ message: 'Unauthorized' });
+      return h.response({ message: 'Unauthorized' }).code(401);
     }
     await authService.updatePassword(userId, oldPassword, newPassword);
-    res.json({ message: 'Password updated successfully' });
-  } catch (error: any) { // Explicitly type error as any
-    res.status(400).json({ message: error.message });
+    return h.response({ message: 'Password updated successfully' }).code(200);
+  } catch (error: any) {
+    return h.response({ message: error.message }).code(400);
   }
 };

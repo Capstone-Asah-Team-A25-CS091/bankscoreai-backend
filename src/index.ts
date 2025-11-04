@@ -1,18 +1,35 @@
-import express from 'express';
+
+import * as Hapi from '@hapi/hapi';
 import * as dotenv from 'dotenv';
-import morgan from 'morgan';
 dotenv.config();
-import authRouter from './api/auth';
+import authRoutes from './api/auth';
+import { authPlugin } from './middlewares/auth';
+import pino from 'hapi-pino';
 
-const app = express();
-const port = process.env.PORT || 3000;
+const init = async () => {
+  const server = Hapi.server({
+    port: process.env.PORT || 3000,
+    host: 'localhost',
+  });
 
+  await server.register(authPlugin);
+  await server.register({
+    plugin: pino,
+    options: {
+      prettyPrint: process.env.NODE_ENV !== 'production',
+      logEvents: ['response', 'onPostStart'],
+    },
+  });
 
-app.use(morgan('dev'));
-app.use(express.json());
+  server.route(authRoutes);
 
-app.use('/api/auth', authRouter);
+  await server.start();
+  console.log(`Server running on ${server.info.uri}`);
+};
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+process.on('unhandledRejection', (err) => {
+  console.log(err);
+  process.exit(1);
 });
+
+init();
