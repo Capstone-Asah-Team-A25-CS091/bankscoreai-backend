@@ -1,0 +1,40 @@
+{
+  "name": "bankscoreai-backend",
+  "main": "src/index.ts",
+  "private": true,
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "concurrently \"tsc --watch\" \"nodemon src/index.ts\"",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint .",
+    "migrate": "bun run src/migrate.ts"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^6.0.0",
+    "@types/bun": "latest",
+    "@types/express": "^5.0.5",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/morgan": "^1.9.10",
+    "@types/pg": "^8.15.6"
+  },
+  "peerDependencies": {
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "@hapi/hapi": "^21.4.3",
+    "@types/hapi__hapi": "^21.0.0",
+    "@types/node": "^24.10.0",
+    "bcrypt": "^6.0.0",
+    "concurrently": "^9.2.1",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "install": "^0.13.0",
+    "jsonwebtoken": "^9.0.2",
+    "morgan": "^1.10.1",
+    "nodemon": "^3.1.10",
+    "pg": "^8.16.3",
+    "ts-node-dev": "^2.0.0",
+    "zod": "^4.1.12"
+  }
+}
