@@ -16,7 +16,7 @@ Instruksi ini akan membantu Anda mendapatkan salinan proyek yang berjalan di mes
 
 1. Kloning repositori:
    ```sh
-   git clone https://github.com/your-username/bankscoreai-backend.git
+   git clone https://github.com/Capstone-Asah-Team-A25-CS091/bankscoreai-backend.git
    ```
 2. Instal dependensi:
    ```sh
@@ -24,12 +24,12 @@ Instruksi ini akan membantu Anda mendapatkan salinan proyek yang berjalan di mes
    ```
 3. Buat file `.env` di root proyek dengan variabel berikut:
    ```
-   DB_USER=nama_pengguna_db_anda
-   DB_HOST=host_db_anda
+   DB_USER=your_db_user
+   DB_HOST=your_db_host
    DB_DATABASE=capstone_asah
-   DB_PASSWORD=kata_sandi_db_anda
-   DB_PORT=port_db_anda
-   JWT_SECRET=kunci_rahasia_jwt_anda
+   DB_PASSWORD=your_db_password
+   DB_PORT=your_db_port
+   JWT_SECRET=your_jwt_secret
    ```
 4. Jalankan migrasi database:
    ```sh
