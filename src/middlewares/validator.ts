@@ -1,22 +1,17 @@
-
-import { NextFunction, Request, Response } from 'express';
+import { Request, ResponseToolkit, ResponseObject } from '@hapi/hapi';
 import { z } from 'zod';
 
 export const validate = (
   schema: z.ZodObject<any, any>
-) => (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+) => async (request: Request, h: ResponseToolkit) => {
   try {
     schema.parse({
-      body: req.body,
-      query: req.query,
-      params: req.params,
+      body: request.payload,
+      query: request.query,
+      params: request.params,
     });
-    next();
+    return h.continue;
   } catch (error: any) {
-    res.status(400).json({ errors: error.errors });
+    return h.response({ errors: error.errors }).code(400).takeover();
   }
 };
