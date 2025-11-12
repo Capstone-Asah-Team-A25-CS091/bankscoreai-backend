@@ -36,7 +36,7 @@ export const login = async (email: string, password: string) => {
 };
 
 export const updatePassword = async (
-  id: number,
+  id: string,
   oldPassword: string,
   newPassword: string
 ) => {
