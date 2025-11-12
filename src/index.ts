@@ -8,7 +8,7 @@ import { authPlugin } from "./middlewares/auth";
 const init = async () => {
   const server = Hapi.server({
     port: process.env.PORT || 3000,
-    host: "localhost",
+    host: process.env.HOST || "localhost",
   });
 
   await server.register(authPlugin);
