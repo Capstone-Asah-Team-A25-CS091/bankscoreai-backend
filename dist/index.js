@@ -38,28 +38,34 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const Hapi = __importStar(require("@hapi/hapi"));
 const dotenv = __importStar(require("dotenv"));
+const hapi_pino_1 = __importDefault(require("hapi-pino"));
 dotenv.config();
 const auth_1 = __importDefault(require("./api/auth"));
 const auth_2 = require("./middlewares/auth");
-const hapi_pino_1 = __importDefault(require("hapi-pino"));
 const init = async () => {
     const server = Hapi.server({
         port: process.env.PORT || 3000,
-        host: 'localhost',
+        host: "localhost",
     });
     await server.register(auth_2.authPlugin);
     await server.register({
         plugin: hapi_pino_1.default,
         options: {
-            prettyPrint: process.env.NODE_ENV !== 'production',
-            logEvents: ['response', 'onPostStart'],
+            transport: process.env.NODE_ENV !== "production"
+                ? {
+                    target: "pino-pretty",
+                    options: {
+                        colorize: true,
+                    },
+                }
+                : undefined,
+            logEvents: ["response", "onPostStart"],
         },
     });
     server.route(auth_1.default);
     await server.start();
-    console.log(`Server running on ${server.info.uri}`);
 };
-process.on('unhandledRejection', (err) => {
+process.on("unhandledRejection", (err) => {
     console.log(err);
     process.exit(1);
 });

@@ -38,30 +38,28 @@ const validator_1 = require("../../middlewares/validator");
 const auth_validation_1 = require("./auth.validation");
 const authRoutes = [
     {
-        method: 'POST',
-        path: '/api/auth/register',
+        method: "POST",
+        path: "/api/auth/register",
         handler: authController.register,
         options: {
-            pre: [{ method: (0, validator_1.validate)(auth_validation_1.createUserSchema), assign: 'payload' }],
+            pre: [{ method: (0, validator_1.validate)(auth_validation_1.createUserSchema), assign: "payload" }],
         },
     },
     {
-        method: 'POST',
-        path: '/api/auth/login',
+        method: "POST",
+        path: "/api/auth/login",
         handler: authController.login,
         options: {
-            pre: [{ method: (0, validator_1.validate)(auth_validation_1.loginUserSchema), assign: 'payload' }],
+            pre: [{ method: (0, validator_1.validate)(auth_validation_1.loginUserSchema), assign: "payload" }],
         },
     },
     {
-        method: 'PUT',
-        path: '/api/auth/password',
+        method: "PUT",
+        path: "/api/auth/password",
         handler: authController.updatePassword,
         options: {
-            auth: 'jwt-auth',
-            pre: [
-                { method: (0, validator_1.validate)(auth_validation_1.updatePasswordSchema), assign: 'payload' },
-            ],
+            auth: "jwt-auth",
+            pre: [{ method: (0, validator_1.validate)(auth_validation_1.updatePasswordSchema), assign: "payload" }],
         },
     },
 ];

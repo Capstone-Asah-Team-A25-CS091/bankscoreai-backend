@@ -7,7 +7,7 @@ const jwt_1 = require("../../utils/jwt");
 const register = async (email, password, name) => {
     const existingUser = await (0, user_1.findUserByEmail)(email);
     if (existingUser) {
-        throw new Error('User already exists');
+        throw new Error("Pengguna sudah ada");
     }
     const user = await (0, user_1.createUser)(email, password, name);
     const token = (0, jwt_1.createToken)({ id: user.id });
@@ -17,11 +17,11 @@ exports.register = register;
 const login = async (email, password) => {
     const user = await (0, user_1.findUserByEmail)(email);
     if (!user) {
-        throw new Error('Invalid credentials');
+        throw new Error("Kredensial tidak valid");
     }
     const isPasswordValid = await (0, password_1.comparePassword)(password, user.password_hash);
     if (!isPasswordValid) {
-        throw new Error('Invalid credentials');
+        throw new Error("Kredensial tidak valid");
     }
     const token = (0, jwt_1.createToken)({ id: user.id });
     return { user, token };
@@ -30,11 +30,11 @@ exports.login = login;
 const updatePassword = async (id, oldPassword, newPassword) => {
     const user = await (0, user_1.findUserById)(id);
     if (!user) {
-        throw new Error('User not found');
+        throw new Error("Pengguna tidak ditemukan");
     }
     const isPasswordValid = await (0, password_1.comparePassword)(oldPassword, user.password_hash);
     if (!isPasswordValid) {
-        throw new Error('Invalid old password');
+        throw new Error("Kata sandi lama tidak valid");
     }
     await (0, user_1.updateUserPassword)(id, newPassword);
 };
