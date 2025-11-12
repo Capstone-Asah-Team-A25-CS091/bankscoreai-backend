@@ -7,6 +7,7 @@ import {
 import { comparePassword } from "../../utils/password";
 import { createToken } from "../../utils/jwt";
 
+
 export const register = async (
   email: string,
   password: string,

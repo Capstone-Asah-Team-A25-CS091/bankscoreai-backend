@@ -10,7 +10,13 @@ export const register = async (request: Request, h: ResponseToolkit) => {
   try {
     const { email, password, name } = request.payload as RegisterPayload;
     const { user, token } = await authService.register(email, password, name);
-    return h.response({ user, token }).code(201);
+    return h
+      .response({
+        status: 'success',
+        code: 201,
+        data: { user, token },
+      })
+      .code(201);
   } catch (error) {
     if (error instanceof Error) {
       return h
@@ -35,7 +41,13 @@ export const login = async (request: Request, h: ResponseToolkit) => {
   try {
     const { email, password } = request.payload as LoginPayload;
     const { user, token } = await authService.login(email, password);
-    return h.response({ user, token }).code(200);
+    return h
+      .response({
+        status: 'success',
+        code: 200,
+        data: { user, token },
+      })
+      .code(200);
   } catch (error) {
     if (error instanceof Error) {
       return h
