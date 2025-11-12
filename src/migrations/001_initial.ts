@@ -1,10 +1,10 @@
-
 import pool from '../db';
 
 const up = async () => {
+  await pool.query(`CREATE EXTENSION IF NOT EXISTS "uuid-ossp";`);
   await pool.query(`
     CREATE TABLE IF NOT EXISTS users (
-      id SERIAL PRIMARY KEY,
+      id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
       email VARCHAR(255) UNIQUE NOT NULL,
       password_hash VARCHAR(255) NOT NULL,
       name VARCHAR(255) NOT NULL
@@ -25,3 +25,4 @@ if (require.main === module) {
     down();
   }
 }
+

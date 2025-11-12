@@ -1,7 +1,6 @@
-import { Pool } from 'pg';
-import dotenv from 'dotenv';
+import { Pool } from "pg";
+import dotenv from "dotenv";
 dotenv.config();
-
 
 const pool = new Pool({
   // ! pg local
@@ -11,11 +10,11 @@ const pool = new Pool({
   // password: process.env.DB_PASSWORD,
   // port: process.env.DB_PORT ? parseInt(process.env.DB_PORT, 10) : 5433,
 
-  // ! pg serverless 
+  // ! pg serverless
   connectionString: process.env.DB_USER,
-  ssl:{
-    rejectUnauthorized: false
-  }
+  ssl: {
+    rejectUnauthorized: false,
+  },
 });
 
 export default pool;

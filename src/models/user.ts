@@ -22,13 +22,13 @@ export const findUserByEmail = async (email: string): Promise<User | null> => {
   return result.rows[0] || null;
 };
 
-export const findUserById = async (id: number): Promise<User | null> => {
+export const findUserById = async (id: string): Promise<User | null> => {
   const result = await pool.query("SELECT * FROM users WHERE id = $1", [id]);
   return result.rows[0] || null;
 };
 
 export const updateUserPassword = async (
-  id: number,
+  id: string,
   password: string
 ): Promise<void> => {
   const passwordHash = await hashPassword(password);

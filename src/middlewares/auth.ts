@@ -3,7 +3,7 @@ import { verifyToken } from '../utils/jwt';
 
 declare module '@hapi/hapi' {
   interface AuthCredentials {
-    id: number;
+    id: string;
   }
 }
 
@@ -25,7 +25,7 @@ export const authPlugin = {
           return h.unauthenticated(new Error(decoded));
         }
 
-        return h.authenticated({ credentials: decoded as { id: number } });
+        return h.authenticated({ credentials: decoded as { id: string } });
       },
     }));
 
