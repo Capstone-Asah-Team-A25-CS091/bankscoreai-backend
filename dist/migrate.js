@@ -42,7 +42,7 @@ const db_1 = __importDefault(require("./db"));
 const runMigrations = async () => {
     const client = await db_1.default.connect();
     try {
-        await client.query('BEGIN');
+        await client.query("BEGIN");
         await client.query(`
             CREATE TABLE IF NOT EXISTS users (
                 id SERIAL PRIMARY KEY,
@@ -53,12 +53,12 @@ const runMigrations = async () => {
                 updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
             );
         `);
-        await client.query('COMMIT');
-        console.log('Migrations completed successfully.');
+        await client.query("COMMIT");
+        console.log("Migrations completed successfully.");
     }
     catch (err) {
-        await client.query('ROLLBACK');
-        console.error('Error running migrations:', err);
+        await client.query("ROLLBACK");
+        console.error("Error running migrations:", err);
         throw err;
     }
     finally {

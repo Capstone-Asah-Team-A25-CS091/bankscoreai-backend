@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from "zod";
 export declare const createUserSchema: z.ZodObject<{
     body: z.ZodObject<{
         email: z.ZodString;
@@ -18,3 +18,6 @@ export declare const updatePasswordSchema: z.ZodObject<{
         newPassword: z.ZodString;
     }, z.core.$strip>;
 }, z.core.$strip>;
+export type RegisterPayload = z.infer<typeof createUserSchema.shape.body>;
+export type LoginPayload = z.infer<typeof loginUserSchema.shape.body>;
+export type UpdatePasswordPayload = z.infer<typeof updatePasswordSchema.shape.body>;

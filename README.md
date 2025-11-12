@@ -1,4 +1,3 @@
-
 # BankScoreAI Backend
 
 Ini adalah backend untuk aplikasi BankScoreAI. Ini menyediakan API RESTful untuk otentikasi pengguna dan fitur lainnya.
@@ -41,6 +40,12 @@ Instruksi ini akan membantu Anda mendapatkan salinan proyek yang berjalan di mes
    ```
 
 Server akan berjalan di `http://localhost:3000`.
+
+## Database
+
+Berikut adalah Entity-Relationship Diagram (ERD) untuk database yang digunakan dalam proyek ini.
+
+![ERD BankScoreAI](public/erd_v1.png)
 
 ## Dokumentasi API
 

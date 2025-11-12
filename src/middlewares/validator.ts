@@ -1,17 +1,20 @@
-import { Request, ResponseToolkit, ResponseObject } from '@hapi/hapi';
-import { z } from 'zod';
+import { Request, ResponseToolkit } from '@hapi/hapi';
+import { z, ZodError, ZodRawShape } from 'zod';
 
-export const validate = (
-  schema: z.ZodObject<any, any>
-) => async (request: Request, h: ResponseToolkit) => {
-  try {
-    schema.parse({
-      body: request.payload,
-      query: request.query,
-      params: request.params,
-    });
-    return h.continue;
-  } catch (error: any) {
-    return h.response({ errors: error.errors }).code(400).takeover();
-  }
-};
+export const validate =
+  (schema: z.ZodObject<ZodRawShape>) =>
+  async (request: Request, h: ResponseToolkit) => {
+    try {
+      schema.parse({
+        body: request.payload,
+        query: request.query,
+        params: request.params,
+      });
+      return h.continue;
+    } catch (error) {
+      if (error instanceof ZodError) {
+        return h.response({ errors: error.issues }).code(400).takeover();
+      }
+      return h.response({ message: 'Internal Server Error' }).code(500).takeover();
+    }
+  };
