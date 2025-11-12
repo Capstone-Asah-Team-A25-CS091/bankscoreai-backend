@@ -36,7 +36,7 @@ Instruksi ini akan membantu Anda mendapatkan salinan proyek yang berjalan di mes
    ```
 5. Mulai server:
    ```sh
-   bun run start
+   bun run dev
    ```
 
 Server akan berjalan di `http://localhost:3000`.
