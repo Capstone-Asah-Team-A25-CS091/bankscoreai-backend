@@ -6,7 +6,7 @@ Ini adalah backend untuk aplikasi BankScoreAI. Ini menyediakan API RESTful untuk
 
 Instruksi ini akan membantu Anda mendapatkan salinan proyek yang berjalan di mesin lokal Anda untuk tujuan pengembangan dan pengujian.
 
-### Prasyarat
+### Syarat 
 
 * Bun
 * PostgreSQL
@@ -69,12 +69,16 @@ Mendaftarkan pengguna baru.
 
 ```json
 {
-  "user": {
-    "id": 1,
-    "email": "user@example.com",
-    "name": "John Doe"
-  },
-  "token": "token_jwt_anda"
+  "status": "success",
+  "code": 201,
+  "data": {
+    "user": {
+      "id": 1,
+      "email": "user@example.com",
+      "name": "John Doe"
+    },
+    "token": "token_jwt_anda"
+  }
 }
 ```
 
@@ -95,12 +99,16 @@ Masuk sebagai pengguna.
 
 ```json
 {
-  "user": {
-    "id": 1,
-    "email": "user@example.com",
-    "name": "John Doe"
-  },
-  "token": "token_jwt_anda"
+  "status": "success",
+  "code": 200,
+  "data": {
+    "user": {
+      "id": 1,
+      "email": "user@example.com",
+      "name": "John Doe"
+    },
+    "token": "token_jwt_anda"
+  }
 }
 ```
 
@@ -125,6 +133,8 @@ Memperbarui kata sandi pengguna yang terotentikasi.
 
 ```json
 {
+  "status": "success",
+  "code": 200,
   "message": "Kata sandi berhasil diperbarui"
 }
 ```
