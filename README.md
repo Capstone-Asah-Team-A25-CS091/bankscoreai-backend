@@ -55,7 +55,7 @@ Berikut adalah Entity-Relationship Diagram (ERD) untuk database yang digunakan d
 
 Mendaftarkan pengguna baru.
 
-**Body Permintaan:**
+**Request Body:**
 
 ```json
 {
@@ -65,7 +65,7 @@ Mendaftarkan pengguna baru.
 }
 ```
 
-**Respon:**
+**Response:**
 
 ```json
 {
@@ -82,7 +82,7 @@ Mendaftarkan pengguna baru.
 
 Masuk sebagai pengguna.
 
-**Body Permintaan:**
+**Request Body:**
 
 ```json
 {
@@ -91,7 +91,7 @@ Masuk sebagai pengguna.
 }
 ```
 
-**Respon:**
+**Response:**
 
 ```json
 {
@@ -112,7 +112,7 @@ Memperbarui kata sandi pengguna yang terotentikasi.
 
 * `Authorization`: `Bearer token_jwt_anda`
 
-**Body Permintaan:**
+**Request Body:**
 
 ```json
 {
@@ -121,7 +121,7 @@ Memperbarui kata sandi pengguna yang terotentikasi.
 }
 ```
 
-**Respon:**
+**Response:**
 
 ```json
 {
