@@ -138,3 +138,138 @@ Memperbarui kata sandi pengguna yang terotentikasi.
   "message": "Kata sandi berhasil diperbarui"
 }
 ```
+### Prediksi
+
+Endpoint ini memerlukan otentikasi. Pastikan Anda menyertakan token JWT di header `Authorization`.
+
+**Header:** `Authorization: Bearer <your_jwt_token>`
+
+---
+
+#### `POST /api/predict`
+
+Mengunggah file CSV atau Excel untuk mendapatkan prediksi kelayakan kredit. Setiap baris dalam file akan diproses dan disimpan sebagai catatan prediksi yang terpisah.
+
+**Request Body:**
+
+*   **Tipe Konten:** `multipart/form-data`
+*   **Key:** `file`
+*   **Value:** File `.csv`, `.xlsx`, atau `.xls` Anda.
+
+**Contoh Penggunaan (cURL):**
+
+```bash
+curl -X POST http://localhost:3000/api/predict \
+-H "Authorization: Bearer <your_jwt_token>" \
+-F "file=@/path/to/your/data.csv"
+```
+
+**Success Response (200 OK):**
+
+Mengembalikan array hasil prediksi untuk setiap baris dalam file yang diunggah.
+
+```json
+{
+  "status": "success",
+  "code": 200,
+  "message": "Prediksi berhasil.",
+  "data": [
+    {
+      "row_number": 1,
+      "original_data": {
+        "age": "30",
+        "job": "blue-collar",
+        "marital": "married",
+        "education": "basic.9y",
+        "default": "no",
+        "housing": "yes",
+        "loan": "no",
+        "contact": "cellular",
+        "month": "may",
+        "day_of_week": "fri",
+        "duration": "261",
+        "campaign": "1",
+        "pdays": "999",
+        "previous": "0",
+        "poutcome": "nonexistent",
+        "emp.var.rate": "-1.8",
+        "cons.price.idx": "92.893",
+        "cons.conf.idx": "-46.2",
+        "euribor3m": "1.313",
+        "nr.employed": "5099.1",
+        "y": "no"
+      },
+      "prediction_result": {
+        "probability": 0.0334,
+        "prediction": "NO"
+      }
+    }
+  ]
+}
+```
+
+---
+
+#### `GET /api/predict`
+
+Mengambil riwayat semua prediksi yang telah dibuat oleh pengguna yang terotentikasi.
+
+**Contoh Penggunaan (cURL):**
+
+```bash
+curl -X GET http://localhost:3000/api/predict \
+-H "Authorization: Bearer <your_jwt_token>"
+```
+
+**Success Response (200 OK):**
+
+Mengembalikan array objek, di mana setiap objek mewakili catatan prediksi yang disimpan dari database.
+
+```json
+{
+    "status": "success",
+    "code": 200,
+    "message": "Hasil prediksi berhasil diambil",
+    "data": [
+        {
+            "id": 1,
+            "age": 30,
+            "job": "blue-collar",
+            "marital": "married",
+            "education": "basic.9y",
+            "has_credit_in_default": "no",
+            "housing": "yes",
+            "loan": "no",
+            "contact": "cellular",
+            "month": "may",
+            "day_of_week": "fri",
+            "duration": 261,
+            "campaign": 1,
+            "pdays": 999,
+            "previous": 0,
+            "poutcome": "nonexistent",
+            "emp_var_rate": -1.8,
+            "cons_price_idx": 92.893,
+            "cons_conf_idx": -46.2,
+            "euribor3m": 1.313,
+            "nr_employed": 5099.1,
+            "prediction_result": "NO",
+            "prediction_probability": 0.0334,
+            "user_id": "auth0|user123",
+            "created_at": "2023-10-27T10:00:00.000Z",
+            "updated_at": "2023-10-27T10:00:00.000Z"
+        }
+    ]
+}
+```
+
+**Response Jika Tidak Ada Data (200 OK):**
+
+```json
+{
+    "status": "success",
+    "code": 200,
+    "message": "Data masih kosong, silahkan upload csv/excel",
+    "data": []
+}
+```

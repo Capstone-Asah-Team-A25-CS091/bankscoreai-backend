@@ -13,7 +13,7 @@ import pcaConfig from '../../../ml-model/pca.json';
 
 let model: tf.LayersModel | null = null;
 
-// --- Model Loading (Manual Handler) ---
+// model loading
 async function loadModel(): Promise<tf.LayersModel> {
   if (model) return model;
   console.log('Attempting to load model manually from file system...');
@@ -114,7 +114,7 @@ function preprocessData(data: any[]): tf.Tensor {
     return finalTensor;
 }
 
-// --- Database Insertion (Now re-throws errors) ---
+// db insertion !! helper 
 async function saveDataToDb(data: CreditApplication) {
     const columns = Object.keys(data);
     const values = Object.values(data);
@@ -125,11 +125,11 @@ async function saveDataToDb(data: CreditApplication) {
         await pool.query(query, values);
     } catch (error) {
         console.error('Database insertion failed for a row. This error will be thrown.', error);
-        throw error; // Re-throw the error to be caught by the controller
+        throw error; 
     }
 }
 
-// --- Main Service Function ---
+// main service 
 async function createPrediction(
   fileBuffer: Buffer,
   fileType: string,
@@ -213,6 +213,19 @@ async function createPrediction(
 
 export const predictService = {
   createPrediction,
+  getPredictionsByUserId,
 };
+
+async function getPredictionsByUserId(userId: string): Promise<any[]> {
+  const query = 'SELECT * FROM credit_applications WHERE user_id = $1 ORDER BY created_at DESC;';
+  try {
+    const result = await pool.query(query, [userId]);
+    return result.rows;
+  } catch (error) {
+    console.error('Error fetching predictions from database:', error);
+    throw error;
+  }
+}
+
 
 export { loadModel };
