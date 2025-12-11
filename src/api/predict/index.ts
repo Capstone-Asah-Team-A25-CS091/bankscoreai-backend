@@ -22,6 +22,17 @@ const predictRoutes: Hapi.ServerRoute[] = [
       notes: 'Upload a CSV or Excel file to get a credit score prediction. The file should be sent as multipart/form-data with the key "file".',
     },
   },
+  {
+    method: 'GET',
+    path: '/api/predict',
+    options: {
+      auth: 'jwt-auth',
+      handler: predictController.handleGetPredictions,
+      description: 'Get prediction history for the authenticated user',
+      tags: ['api', 'predict'],
+      notes: 'Returns a list of all predictions made by the currently authenticated user.',
+    },
+  },
 ];
 
 export default predictRoutes;
