@@ -63,7 +63,7 @@ export type Month =
 export type POutcome = "failure" | "nonexistent" | "success" | "other";
 export type Binary = "yes" | "no";
 
-export interface NasabahMarketing {
+export interface CreditApplication {
   name?: string;
   id: string;
   userId: string;
@@ -71,7 +71,7 @@ export interface NasabahMarketing {
   job: string;
   marital: string;
   education: string;
-  default: boolean; 
+  has_credit_in_default?: string; 
   balance?: number; 
   housing: boolean; 
   loan: boolean;
@@ -84,4 +84,9 @@ export interface NasabahMarketing {
   previous_contacts: number; 
   poutcome: POutcome; 
   subscribed_term_deposit: Binary; 
+  prediction_result?: string;
+  prediction_probability?: number;
+  created_at?: Date;
+  updated_at?: Date;
 }
+

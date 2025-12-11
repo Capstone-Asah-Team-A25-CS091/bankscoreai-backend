@@ -1,0 +1,6 @@
+age,job,marital,education,default,balance,housing,loan,contact,month,day_of_week,duration,campaign,pdays,previous,poutcome,emp.var.rate,cons.price.idx,cons.conf.idx,euribor3m,nr.employed,y
+33,admin.,married,university.degree,no,1450,yes,no,cellular,aug,wed,210,1,999,0,nonexistent,1.4,"93,444",-36.1,"4,963",5228.1,no
+47,technician,married,professional.course,no,320,yes,no,telephone,may,mon,155,2,999,0,nonexistent,1.1,"93,994",-36.4,"4,857",5191.0,no
+29,student,single,high.school,no,560,no,no,cellular,jun,fri,450,1,6,1,success,-1.7,"94,055",-39.8,729,4991.6,yes
+55,retired,divorced,basic.4y,unknown,2500,yes,yes,cellular,nov,tue,110,3,999,1,failure,-0.1,"93,200",-42.0,"4,191",5195.8,no
+41,entrepreneur,married,university.degree,no,205,yes,no,cellular,jul,thu,340,1,999,0,nonexistent,1.4,"93,918",-42.7,"4,962",5228.1,no
