@@ -11,6 +11,11 @@ const init = async () => {
   const server = Hapi.server({
     port: process.env.PORT || 3000,
     host: process.env.HOST || "localhost",
+    routes: {
+      cors: {
+        origin: ["*"], // a more restrictive origin is better for production
+      },
+    },
   });
 
   await server.register(authPlugin);
